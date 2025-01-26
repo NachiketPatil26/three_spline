@@ -2,14 +2,14 @@
     "builds": [
       {
         "src": "package.json",
-        "use": "@vercel/node",
-        "config": {
-          "includeFiles": ["vite.config.js"]
-        }
+        "use": "@vercel/node"
+      },
+      {
+        "src": "vite.config.js",
+        "use": "@vercel/static"
       }
     ],
     "env": {
       "NODE_ENV": "production"
     }
   }
-  
