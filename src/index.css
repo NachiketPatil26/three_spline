@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
-
+html{
+    touch-action: none;
+}
 body {
    background-color: black;
+   touch-action: none;
 }
 
 @keyframes loadingBar {
