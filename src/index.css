@@ -1,11 +1,9 @@
 @import "tailwindcss";
 
-html{
-    touch-action: none;
-}
+
 body {
    background-color: black;
-   touch-action: none;
+   -webkit-overflow-scrolling: touch;
 }
 
 @keyframes loadingBar {
