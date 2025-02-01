@@ -1,34 +1,14 @@
 @import "tailwindcss";
 
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-y: auto;   /* Enable vertical scrolling */
+  touch-action: pan-y; /* Allow vertical scrolling */
+  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+}
 
 body {
    background-color: black;
-   -webkit-overflow-scrolling: touch;
 }
-
-@keyframes loadingBar {
-   from {
-     width: 0;
-   }
-   to {
-     width: 100%;
-   }
- }
- 
- @keyframes rowUp {
-   from {
-     transform: translateY(100%);
-   }
-   to {
-     transform: translateY(0);
-   }
- }
- 
- @keyframes rowDown {
-   from {
-     transform: translateY(-100%);
-   }
-   to {
-     transform: translateY(0);
-   }
- }
