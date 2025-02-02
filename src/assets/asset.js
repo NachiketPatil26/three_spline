@@ -6,6 +6,7 @@ import discover_shaids_vid from './videos/discover_shaids.webm';
 import discover_in_vid from './videos/in_vid.webm';
 
 
+
 const assets = {
     Shaids_black,
     Shaids_white,

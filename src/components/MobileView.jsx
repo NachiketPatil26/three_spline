@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useRef } from 'react';
 import assets from "../assets/asset";
-import Navbar from './Navbar';
+import Grid from './Cards';
 
 const MobileView = () => {
   const [showLoopVideo, setShowLoopVideo] = useState(false);
   const [showDiscoverInVideo, setShowDiscoverInVideo] = useState(false);
   const [showButton, setShowButton] = useState(true);
+  const [showGrid, setShowGrid] = useState(false);
   const [buttonOpacity, setButtonOpacity] = useState('opacity-100');
+  const [discoverVideoOpacity, setDiscoverVideoOpacity] = useState(1); 
   const loopVideoRef = useRef(null);
   const discoverInVideoRef = useRef(null);
 
@@ -23,14 +25,18 @@ const MobileView = () => {
     setTimeout(() => {
       setShowDiscoverInVideo(true);
       setShowButton(false);
+      setDiscoverVideoOpacity(0); 
       if (discoverInVideoRef.current) {
         discoverInVideoRef.current.play();
       }
     }, 500);
   };
 
+  const handleDiscoverVideoEnd = () => {
+    setShowGrid(true);
+  };
+
   return (
-    <>
     <div className="flex flex-col w-full min-h-screen">
       {/* Hero Section */}
       <section className="relative w-full h-[100vh] md:h-auto md:aspect-video overflow-hidden">
@@ -39,7 +45,7 @@ const MobileView = () => {
           autoPlay 
           muted 
           playsInline
-          preload="auto"  // Added preload="auto" for preloading
+          preload="auto"
           onEnded={handleStartVideoEnd}
           className={`w-full h-full object-cover absolute top-0 left-0 ${
             showLoopVideo ? 'hidden' : 'block'
@@ -51,7 +57,7 @@ const MobileView = () => {
           muted 
           loop
           playsInline 
-          preload="auto"  // Added preload="auto" for preloading
+          preload="auto"
           className={`w-full h-full object-cover absolute top-0 left-0 ${
             showLoopVideo ? 'block' : 'hidden'
           }`}
@@ -66,34 +72,43 @@ const MobileView = () => {
           loop
           muted
           playsInline 
-          preload="auto"  // Added preload="auto" for preloading
-          className={`w-full h-full object-cover ${
-            showDiscoverInVideo ? 'hidden' : 'block'
+          preload="auto"
+          className={`w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
+            showDiscoverInVideo ? 'opacity-0' : `opacity-${discoverVideoOpacity}`
           }`}
         />
+        
         {showButton && (
           <button 
             onClick={handleDiscoverClick}
-            className={`absolute top-1/2 left-1/2 transform -translate-x-1/2  translate-y-[40px] z-10 
+            className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-[40px] z-10 
               px-6 py-2 bg-white text-black rounded-full hover:bg-opacity-90 
               transition-opacity duration-500 ease-in-out ${buttonOpacity}`}
           >
             CLICK
           </button>
         )}
+        
         <video 
           ref={discoverInVideoRef}
           src={assets.discover_in_vid}
           muted
-          playsInline 
-          preload="auto"  // Added preload="auto" for preloading
-          className={`w-full h-full object-cover ${
-            showDiscoverInVideo ? 'block' : 'hidden'
-          }`}
+          playsInline
+          preload="auto"
+          onEnded={handleDiscoverVideoEnd}
+          className={`w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-300 ease-in-out ${showDiscoverInVideo ? 'opacity-100' : 'opacity-0'}`}
+          style={{ playbackRate: 2 }}
         />
+
+        
+        {/* Grid Section */}
+        <div className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ${
+          showGrid ? 'opacity-100 z-10' : 'opacity-0 z-0'
+        }`}>
+          {showGrid && <Grid />}
+        </div>
       </section>
     </div>
-    </>
   );
 };
 
